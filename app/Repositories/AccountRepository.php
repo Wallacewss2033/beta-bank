@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Enums\TransactionStatusEnum;
 use App\Models\Account;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AccountRepository extends BaseRepository
 {
@@ -18,5 +19,10 @@ class AccountRepository extends BaseRepository
     {
         $receiver = $this->find($receiverId);
         $receiver->senderTransactions()->attach($senderId, ['value' => $value, 'status' => $status]);
+    }
+
+    public function factory(): Factory
+    {
+        return  $this->account->factory();
     }
 }
