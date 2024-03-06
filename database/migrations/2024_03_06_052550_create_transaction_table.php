@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TransactionStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->decimal('value')->nullable(false);
             $table->tinyInteger('isScheduled')->default(0);
             $table->date('date')->nullable();
-            $table->enum('status', [1, 2]);
+            $table->enum('status', array_column(TransactionStatusEnum::cases(), 'value'));
             $table->timestamps();
 
             $table->foreign('sender')

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\TransactionStatusEnum;
 use App\Models\Account;
 
 class AccountRepository extends BaseRepository
@@ -13,7 +14,7 @@ class AccountRepository extends BaseRepository
         $this->account = $account;
     }
 
-    public function transaction(string $senderId, string $receiverId, float $value, int $status): void
+    public function transaction(string $senderId, string $receiverId, float $value, TransactionStatusEnum $status): void
     {
         $receiver = $this->find($receiverId);
         $receiver->senderTransactions()->attach($senderId, ['value' => $value, 'status' => $status]);

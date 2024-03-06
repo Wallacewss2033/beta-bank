@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\app\Repositories;
 
+use App\Enums\TransactionStatusEnum;
 use App\Models\Account;
 use App\Repositories\AccountRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,7 +25,7 @@ class AccountRepositoryTest extends TestCase
             'balance' => 100.50,
         ]);
 
-        $accountRepository->transaction($accountSender->id, $accountReceiver->id, 60.50, 1);
+        $accountRepository->transaction($accountSender->id, $accountReceiver->id, 60.50, TransactionStatusEnum::APPROVED);
 
         $this->assertDatabaseHas('accounts', [
             'name' => $accountSender->name,
