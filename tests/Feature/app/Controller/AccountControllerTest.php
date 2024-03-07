@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class AccountControllerTest extends TestCase
 {
-    public function test_account_create(): void
+    public function test_endpoint_of_account_create(): void
     {
         $attributes = [
             'name' => 'Ronaldinho Gaúcho',
