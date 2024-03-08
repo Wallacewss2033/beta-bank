@@ -34,7 +34,7 @@ class AccountService
         $response = ExternalService::authorizer($request);
 
         if (!$response) {
-            throw new AuthorizationException('Sem autorização para acessar external');;
+            throw new AuthorizationException('Sem autorização para acessar external');
         }
 
         $hasBalance = $this->senderRepository->checkBalance($request['value'], $request['sender']);
