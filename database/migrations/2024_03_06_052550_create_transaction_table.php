@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignUuid('sender');
             $table->foreignUuid('receiver');
             $table->decimal('value')->nullable(false);
-            $table->tinyInteger('isScheduled')->default(0);
             $table->date('date')->nullable();
             $table->enum('status', array_column(TransactionStatusEnum::cases(), 'value'));
             $table->timestamps();

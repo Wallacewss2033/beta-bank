@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Account;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BaseRepository
 {
@@ -16,6 +17,9 @@ class BaseRepository
 
     public function find(int|string|Uuid $id): Account
     {
-        return $this->account->find($id);
+        $account = $this->account->find($id);
+        if (!$account)
+            throw new NotFoundHttpException('conta não identificada.');
+        return $account;
     }
 }

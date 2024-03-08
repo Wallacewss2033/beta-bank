@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Transaction extends Pivot
@@ -10,14 +12,10 @@ class Transaction extends Pivot
         'sender',
         'receiver',
         'date',
-        'isScheduled',
         'value',
         'status'
     ];
 
-    protected $casts = [
-        'date' => 'date',
-    ];
 
     public function senderAccount()
     {
@@ -27,5 +25,10 @@ class Transaction extends Pivot
     public function receiverAccount()
     {
         return $this->belongsTo(Account::class, 'receiver');
+    }
+
+    public function getTransactions($date, $status)
+    {
+        return $this->where(['date' => $date, 'status' => $status])->get();
     }
 }
