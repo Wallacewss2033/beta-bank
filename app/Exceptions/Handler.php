@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -37,6 +38,10 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof AuthenticationException) {
             return response()->json(['message' => 'Não autorizado.'], 401);
+        }
+
+        if ($e instanceof AuthorizationException) {
+            return response()->json(['message' => 'Não autorizado.'], $e->getStatusCode());
         }
 
         if ($e instanceof QueryException) {
