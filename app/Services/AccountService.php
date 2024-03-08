@@ -31,11 +31,11 @@ class AccountService
 
     public function transaction(array $request)
     {
-        // $response = ExternalService::authorizer($request);
+        $response = ExternalService::authorizer($request);
 
-        // if (!$response) {
-        //     throw new AuthorizationException('Sem autorização para acessar external');;
-        // }
+        if (!$response) {
+            throw new AuthorizationException('Sem autorização para acessar external');;
+        }
 
         $hasBalance = $this->senderRepository->checkBalance($request['value'], $request['sender']);
 
