@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -33,7 +34,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof NotFoundHttpException) {
-            return response()->json(['message' => 'A rota ' . $request->path() . ' não foi encontrada.'], $e->getStatusCode());
+            return response()->json(['message' => $e->getMessage() ?? 'A rota ' . $request->path() . ' não foi encontrada.'], $e->getStatusCode());
         }
 
         if ($e instanceof AuthenticationException) {
@@ -41,7 +42,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof AuthorizationException) {
-            return response()->json(['message' => 'Não autorizado.'], $e->getStatusCode());
+            return response()->json(['message' => $e->getMessage()], 403);
         }
 
         if ($e instanceof QueryException) {
