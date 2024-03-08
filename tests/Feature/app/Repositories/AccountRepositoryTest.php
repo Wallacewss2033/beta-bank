@@ -16,16 +16,16 @@ class AccountRepositoryTest extends TestCase
         $accountRepository = new AccountRepository(new Account());
 
         $accountSender = $accountRepository->create([
-            'name' => 'wallace',
+            'name' => 'Wallace Souza',
             'balance' => 100.50,
         ]);
 
         $accountReceiver = $accountRepository->create([
-            'name' => 'rejane',
+            'name' => 'Rejane Pereira',
             'balance' => 100.50,
         ]);
 
-        $accountRepository->transaction($accountSender->id, $accountReceiver->id, 60.50, TransactionStatusEnum::APPROVED);
+        $accountRepository->transaction($accountSender->id, $accountReceiver->id, 60.50, '2024-03-08', TransactionStatusEnum::APPROVED);
 
         $this->assertDatabaseHas('accounts', [
             'name' => $accountSender->name,
