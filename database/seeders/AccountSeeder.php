@@ -15,6 +15,6 @@ class AccountSeeder extends Seeder
      */
     public function run(AccountRepository $accountRepository): void
     {
-        $accountRepository->factory()->create();
+        $accountRepository->factory()->count(10)->create();
     }
 }
