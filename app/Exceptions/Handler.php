@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -34,24 +35,29 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof NotFoundHttpException) {
-            return response()->json(['message' => $e->getMessage() ?? 'A rota ' . $request->path() . ' não foi encontrada.'], $e->getStatusCode());
+            return response()->json(['error' => $e->getMessage() ?? 'A rota ' . $request->path() . ' não foi encontrada.'], $e->getStatusCode());
         }
 
         if ($e instanceof AuthenticationException) {
-            return response()->json(['message' => 'Não autorizado.'], 401);
+            return response()->json(['error' => 'Não autorizado.'], 401);
         }
 
         if ($e instanceof AuthorizationException) {
-            return response()->json(['message' => $e->getMessage()], 403);
+            return response()->json(['error' => $e->getMessage()], 403);
         }
 
         if ($e instanceof QueryException) {
-            return response()->json(['message' => 'Problema na conexão com o banco de dados', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Problema na conexão com o banco de dados', 'details' => $e->getMessage()], 500);
         }
 
         if ($e instanceof ValidationException) {
             return response()->json(['errors' => $e->validator->errors()->getMessages()], 422);
         }
+
+        if ($e instanceof Exception) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
         return parent::render($request, $e);
     }
 }
