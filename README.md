@@ -22,7 +22,8 @@ php artisan key:generate
 
 - Não esqueça de configurar o banco de dados na ``` .env ```
   
-![image](https://github.com/Wallacewss2033/fullstack-challenge-20231205/assets/39920409/ec726dce-7762-4c68-b66c-668698afad41)
+![image](https://github.com/Wallacewss2033/beta-bank/assets/39920409/fe3d8002-6ff5-479a-a8dc-7ea39aeed6cf)
+
 
 
 - Para criar o banco de dados
@@ -34,3 +35,14 @@ php artisan migrate
 ```
 php artisan db:seed
 ```
+
+- Não esqueça de configurar o servidor extenal 
+![image](https://github.com/Wallacewss2033/beta-bank/assets/39920409/d049d13a-663d-4c42-9ebe-2e376434daf9)
+
+para rodar o comando de transações agendadas 
+
+você pode testar a execução das tranfencias agendadas manualmente com o seguinte comando:
+```
+php artisan send:transactions
+```
+
